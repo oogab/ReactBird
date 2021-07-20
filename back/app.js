@@ -6,6 +6,8 @@ const passport = require('passport')
 const dotenv = require('dotenv')
 const morgan = require('morgan')
 const path = require('path')
+const hpp = require('hpp')
+const helmet = require('helmet')
 
 const postRouter = require('./routes/post')
 const postsRouter = require('./routes/posts')
@@ -35,9 +37,15 @@ passportConfig()
 // 애매하면 post쓰면 된다ㅋㅋ
 // REST API를 완벽히 지키는 일은 드물다!
 
-app.use(morgan('dev'))
+if (process.env.NODE_ENV === 'production') {
+    app.use(morgan('combined'))
+    app.use(hpp())
+    app.use(helmet())
+} else {
+    app.use(morgan('dev'))
+}
 app.use(cors({
-    origin: true,
+    origin: ['http://localhost:3060', 'nodebird.com'],
     credentials: true,
 }))
 app.use('/', express.static(path.join(__dirname, 'uploads')))
