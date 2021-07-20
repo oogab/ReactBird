@@ -13,14 +13,14 @@ module.exports = {
     "username": "admin",
     "password": process.env.DB_PASSWORD,
     "database": "database_test",
-    "host": "127.0.0.1",
+    "host": "ssafy-pjt1-dbserver.cotmr33tcon0.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   },
   "production": {
     "username": "admin",
     "password": process.env.DB_PASSWORD,
     "database": "database_production",
-    "host": "127.0.0.1",
+    "host": "ssafy-pjt1-dbserver.cotmr33tcon0.ap-northeast-2.rds.amazonaws.com",
     "dialect": "mysql"
   }
 }
