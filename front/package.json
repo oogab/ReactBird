@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "dev": "next",
-    "build": "cross-env ANALYZE=true NODE_ENV=production next build"
+    "build": "cross-env ANALYZE=true NODE_ENV=production next build -p 3060"
   },
   "author": "wook",
   "license": "MIT",
