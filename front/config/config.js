@@ -1,1 +1,1 @@
-export const backUrl = 'http://3.35.54.31'
+export const backUrl = 'http://api.myme.today'

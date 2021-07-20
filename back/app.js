@@ -45,7 +45,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(morgan('dev'))
 }
 app.use(cors({
-    origin: ['http://localhost:3060', 'nodebird.com', 'http://3.34.186.33'],
+    origin: ['http://localhost:3060', 'myme.today'],
     credentials: true,
 }))
 app.use('/', express.static(path.join(__dirname, 'uploads')))
@@ -56,6 +56,11 @@ app.use(session({
     saveUninitialized: false,
     resave: false,
     secret: process.env.COOKIE_SECRET,
+    cookie: {
+        httpOnly: true,
+        secure: false,
+        domain: process.env.NODE_ENV === 'production' && '.myme.today'
+    },
 }))
 app.use(passport.initialize())
 app.use(passport.session())
