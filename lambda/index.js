@@ -5,7 +5,7 @@ const s3 = new AWS.S3()
 
 exports.handler = async (event, context, callback) => {
     const Bucket = event.Records[0].s3.bucket.name // wookreactbird-s3
-    const Key = decodeURIComponent(event.Records[0].s3.object.key)  // original/123123123_abc.png
+    const Key = event.Records[0].s3.object.key // original/123123123_abc.png
     console.log(Bucket, Key)
     const filename = Key.split('/')[Key.split('/').length - 1]
     const ext = Key.split('.')[Key.split('.').length - 1].toLowerCase()
