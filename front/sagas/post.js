@@ -70,6 +70,7 @@ function uploadImagesAPI(data) {
 }
 
 function* uploadImages(action) {
+    console.log(action)
     try {
         const result = yield call(uploadImagesAPI, action.data)
         yield put({
