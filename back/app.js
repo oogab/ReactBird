@@ -42,7 +42,7 @@ if (process.env.NODE_ENV === 'production') {
     app.use(hpp())
     app.use(helmet())
     app.use(cors({
-        origin: ['http://myme.today'],
+        origin: ['https://myme.today'],
         credentials: true,
     }))
 } else {
@@ -63,7 +63,7 @@ app.use(session({
     secret: process.env.COOKIE_SECRET,
     cookie: {
         httpOnly: true,
-        secure: false,
+        secure: true,
         domain: process.env.NODE_ENV === 'production' && '.myme.today'
     },
 }))
