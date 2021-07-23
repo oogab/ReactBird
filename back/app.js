@@ -37,8 +37,8 @@ passportConfig()
 // 애매하면 post쓰면 된다ㅋㅋ
 // REST API를 완벽히 지키는 일은 드물다!
 
-app.set('trust proxy', 1)
 if (process.env.NODE_ENV === 'production') {
+    app.set('trust proxy', 1)
     app.use(morgan('combined'))
     app.use(hpp())
     app.use(helmet())
