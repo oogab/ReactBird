@@ -92,7 +92,7 @@ router.post('/', isLoggedIn, upload.none(), async (req, res, next) => {    // PO
 
 router.post('/images', isLoggedIn, upload.array('image'), async (req, res, next) => {  // POST /post/images
     console.log(req.files)
-    res.json(req.files.map((v) => decodeURI(v.location.replace(/\/original\//, '/thumb/'))))
+    res.json(req.files.map((v) => decodeURIComponent(v.location.replace(/\/original\//, '/thumb/'))))
 })
 
 router.post('/:postId/comment', isLoggedIn, async (req, res, next) => {    // POST /post/1/comment
