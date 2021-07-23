@@ -26,7 +26,7 @@ const upload = multer({
         s3: new AWS.S3(),
         bucket: 'wookreactbird',
         key(req, file, cb) {
-            cb(null, `original/${Date.now()}_${path.basename(file.originalname)}`)
+            cb(null, `original/${Date.now()}_${encodeURIComponent(path.basename(file.originalname))}`)
         }
     }),
     // storage: multer.diskStorage({
