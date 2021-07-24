@@ -11,6 +11,7 @@ import CommentForm from "./CommentForm"
 import PostCardContent from "./PostCardContent"
 import { LIKE_POST_REQUEST, REMOVE_POST_REQUEST, UNLIKE_POST_REQUEST, RETWEET_REQUEST } from "../reducers/post"
 import FollowButton from "./FollowButton"
+import PostForm from "./PostForm"
 
 moment.locale('ko')
 
@@ -19,6 +20,7 @@ const PostCard = ({ post }) => {
     const { removePostLoading } = useSelector((state) => state.post)
     const [commentFormOpened, setCommentFormOpened] = useState(false)
     const id = useSelector((state) => state.user.me?.id)
+    const [edit, onChangeEdit] = useState(false)
 
     // useEffect(() => {
     //     if (retweetError) {
@@ -86,7 +88,7 @@ const PostCard = ({ post }) => {
                         <Button.Group>
                             {id && post.User.id === id ? (
                                 <>
-                                    {!post.RetweetId && <Button>수정</Button>}
+                                    {!post.RetweetId && <Button onClick={onChangeEdit(prev => !prev)}>수정</Button>}
                                     <Button type="danger" loading={removePostLoading} onClick={onRemovePost}>삭제</Button>
                                 </>
                             ) : <Button>신고</Button>}
@@ -116,7 +118,9 @@ const PostCard = ({ post }) => {
                     </Card>
                 )
                 : (
-                    <>
+                edit === true
+                    ? (<PostForm content={post.content}/>)
+                    : <>
                         <div style={{ float: 'right' }}>{moment(post.createdAt).format('YYYY.MM.DD')}</div>
                         <Card.Meta
                             avatar={(
