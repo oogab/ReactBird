@@ -132,7 +132,6 @@ function updatePostAPI(data) {
 function* updatePost(action) {
     try {
         // 이렇게 확인을 할 수 있는데 꺼내 쓸 수 있지는 않구나...
-        console.log(action.data.postid)
         const result = yield call(updatePostAPI, action.data)
         yield put({
             type: UPDATE_POST_SUCCESS,
