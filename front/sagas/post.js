@@ -41,9 +41,9 @@ import {
     LOAD_USER_POSTS_FAILURE,
     LOAD_HASHTAG_POSTS_SUCCESS,
     LOAD_HASHTAG_POSTS_FAILURE,
-    MODIFY_POST_REQUEST,
-    MODIFY_POST_SUCCESS,
-    MODIFY_POST_FAILURE,
+    UPDATE_POST_REQUEST,
+    UPDATE_POST_SUCCESS,
+    UPDATE_POST_FAILURE,
     // generateDummyPost,
 } from '../reducers/post'
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user'
@@ -125,23 +125,23 @@ function* unlikePost(action) {
     }
 }
 
-function modifyPostAPI(data) {
-    return axios.patch(`/post/mod/${data.postid}`, data)
+function updatePostAPI(data) {
+    return axios.patch(`/post/${data.PostId}`, data)
 }
 
-function* modifyPost(action) {
+function* updatePost(action) {
     try {
         // 이렇게 확인을 할 수 있는데 꺼내 쓸 수 있지는 않구나...
         console.log(action.data.postid)
-        const result = yield call(modifyPostAPI, action.data)
+        const result = yield call(updatePostAPI, action.data)
         yield put({
-            type: MODIFY_POST_SUCCESS,
+            type: UPDATE_POST_SUCCESS,
             // data: generateDummyPost(10),
             data: result.data
         })
     } catch (err) {
         yield put({
-            type: MODIFY_POST_FAILURE,
+            type: UPDATE_POST_FAILURE,
             error: err.response.data
         })
     }
@@ -315,8 +315,8 @@ function* watchUnlikePost() {
     yield takeLatest(UNLIKE_POST_REQUEST, unlikePost)
 }
 
-function* watchModifyPost() {
-    yield takeLatest(MODIFY_POST_REQUEST, modifyPost)
+function* watchUpdatePost() {
+    yield takeLatest(UPDATE_POST_REQUEST, updatePost)
 }
 
 function* watchLoadPost() {
@@ -360,6 +360,6 @@ export default function* postSaga() {
         fork(watchUnlikePost),
         fork(watchUploadImages),
         fork(watchRetweet),
-        fork(watchModifyPost),
+        fork(watchUpdatePost),
     ])
 }

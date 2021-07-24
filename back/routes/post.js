@@ -122,20 +122,6 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => {    // PO
     }
 })
 
-router.patch('/mod/:postId', isLoggedIn, async (req, res, next) => {     // PATCH /post/mod/1/
-    try {
-        const post = await Post.findOne({ where: { id: req.params.postId }})
-        if (!post) {
-            return res.status(403).send('게시글이 존재하지 않습니다.')
-        }
-        await post.update({content: "수정된 내용!"})
-        res.json(post)
-    } catch (error) {
-        console.error(error)
-        next(error)
-    }
-})
-
 router.patch('/:postId/like', isLoggedIn, async (req, res, next) => {     // PATCH /post/1/like
     try {
         const post = await Post.findOne({ where: { id: req.params.postId }})
@@ -158,6 +144,23 @@ router.delete('/:postId/like', isLoggedIn, async (req, res, next) => {    // DEL
         }
         await post.removeLikers(req.user.id)
         res.json({ PostId: post.id, UserId: req.user.id })
+    } catch (error) {
+        console.error(error)
+        next(error)
+    }
+})
+
+router.patch('/:postId', isLoggedIn, async (req, res, next) => {  // PATCH /post/1
+    try {
+        await Post.update({
+            content: req.body.content
+        }, {
+            where: {
+                id: parseInt(req.params.postId),
+                UserId: req.user.id,
+            },
+        })
+        res.status(200).json({ PostId: req.params.postId, content: req.body.content})
     } catch (error) {
         console.error(error)
         next(error)
