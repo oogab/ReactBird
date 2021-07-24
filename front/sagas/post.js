@@ -133,6 +133,7 @@ function modifyPostAPI(data) {
 
 function* modifyPost(action) {
     try {
+        console.log(action.data)
         const result = yield call(modifyPostAPI, action.data)
         yield put({
             type: MODIFY_POST_SUCCESS,
