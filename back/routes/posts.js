@@ -130,7 +130,17 @@ router.get('/related', async (req, res, next) => { // GET /posts
 // 내가 보고 싶지 않은 사람들...
 router.get('/unrelated', async (req, res, next) => { // GET /posts
     try {
-        const where = {}
+        const followings = await User.findAll({
+            attributes: ['id'],
+            include: [{
+                model: User,
+                as: 'Followers',
+                where: { id: req.user.id }
+            }]
+        })
+        const where = {
+            UserId: { [Op.notIn]: followings.map((v) => v.id) }
+        }
         if (parseInt(req.query.lastId, 10)) {   // 초기 로딩이 아닐 때
             where.id = { [Op.lt]: parseInt(req.query.lastId, 10) }
         } // 21 20 19 18 17 16 15 14 13 12 11 10 9 8 7 6 5 4 3 2 1
