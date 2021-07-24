@@ -87,7 +87,7 @@ const PostCard = ({ post }) => {
                 content: editText,
             }
         })
-    }, [])
+    }, [post])
 
     const liked = post.Likers.find((v) => v.id === id)
 
