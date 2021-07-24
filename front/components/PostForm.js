@@ -1,11 +1,10 @@
 import React, { useCallback, useRef, useEffect } from "react"
-import PropTypes from 'prop-types'
 import { Form, Input, Button } from 'antd'
 import { useDispatch, useSelector } from "react-redux"
 import { addPost, ADD_POST_REQUEST, REMOVE_IMAGE, UPLOAD_IMAGES_REQUEST } from "../reducers/post"
 import useInput from "../hooks/useInput"
 
-const PostForm = ({ content }) => {
+const PostForm = () => {
     const { imagePaths, addPostDone } = useSelector((state) => state.post)
     const dispatch = useDispatch()
     const imageInput = useRef()
@@ -62,7 +61,7 @@ const PostForm = ({ content }) => {
                 value={text}
                 onChange={onChangeText}
                 maxLength={140}
-                placeholder={content ? content : "어떤 신기한 일이 있었나요?"}
+                placeholder="어떤 신기한 일이 있었나요?"
             />
             <div>
                 <input type="file" name="image" multiple hidden ref={imageInput} onChange={onChangeImages} />
@@ -81,10 +80,6 @@ const PostForm = ({ content }) => {
             </div>
         </Form>
     )
-}
-
-PostForm.propTypes = {
-    content: PropTypes.string,
 }
 
 export default PostForm

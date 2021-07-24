@@ -122,6 +122,20 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => {    // PO
     }
 })
 
+router.patch('/:postId', isLoggedIn, async (req, res, next) => {     // PATCH /post/1/
+    try {
+        const post = await Post.findOne({ where: { id: req.params.postId }})
+        if (!post) {
+            return res.status(403).send('게시글이 존재하지 않습니다.')
+        }
+        await post.update({content: req.body.content})
+        res.json(post)
+    } catch (error) {
+        console.error(error)
+        next(error)
+    }
+})
+
 router.patch('/:postId/like', isLoggedIn, async (req, res, next) => {     // PATCH /post/1/like
     try {
         const post = await Post.findOne({ where: { id: req.params.postId }})

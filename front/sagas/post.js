@@ -41,6 +41,9 @@ import {
     LOAD_USER_POSTS_FAILURE,
     LOAD_HASHTAG_POSTS_SUCCESS,
     LOAD_HASHTAG_POSTS_FAILURE,
+    MODIFY_POST_REQUEST,
+    MODIFY_POST_SUCCESS,
+    MODIFY_POST_FAILURE,
     // generateDummyPost,
 } from '../reducers/post'
 import { ADD_POST_TO_ME, REMOVE_POST_OF_ME } from '../reducers/user'
@@ -119,6 +122,26 @@ function* unlikePost(action) {
     } catch (err) {
         yield put({
             type: UNLIKE_POST_FAILURE,
+            error: err.response.data
+        })
+    }
+}
+
+function modifyPostAPI(data) {
+    return axios.patch(`/post/${data.postid}`, data.content)
+}
+
+function* modifyPost(action) {
+    try {
+        const result = yield call(modifyPostAPI, action.data)
+        yield put({
+            type: MODIFY_POST_SUCCESS,
+            // data: generateDummyPost(10),
+            data: result.data
+        })
+    } catch (err) {
+        yield put({
+            type: MODIFY_POST_FAILURE,
             error: err.response.data
         })
     }
@@ -292,6 +315,10 @@ function* watchUnlikePost() {
     yield takeLatest(UNLIKE_POST_REQUEST, unlikePost)
 }
 
+function* watchModifyPost() {
+    yield takeLatest(MODIFY_POST_REQUEST, modifyPost)
+}
+
 function* watchLoadPost() {
     yield takeLatest(LOAD_POST_REQUEST, loadPost)
 }
@@ -333,5 +360,6 @@ export default function* postSaga() {
         fork(watchUnlikePost),
         fork(watchUploadImages),
         fork(watchRetweet),
+        fork(watchModifyPost),
     ])
 }

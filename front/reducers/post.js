@@ -62,6 +62,9 @@ export const initialState = {
     retweetLoading: false,
     retweetDone: false,
     retweetError: null,
+    modifyPostLoading: false,
+    modifyPostDone: false,
+    modifyPostError: null,
 }
 
 // export const generateDummyPost = (number) => Array(number).fill().map(() => ({
@@ -126,6 +129,10 @@ export const ADD_COMMENT_FAILURE = 'ADD_COMMENT_FAILURE'
 export const RETWEET_REQUEST = 'RETWEET_REQUEST'
 export const RETWEET_SUCCESS = 'RETWEET_SUCCESS'
 export const RETWEET_FAILURE = 'RETWEET_FAILURE'
+
+export const MODIFY_POST_REQUEST = 'MODIFY_POST_REQUEST'
+export const MODIFY_POST_SUCCESS = 'MODIFY_POST_SUCCESS'
+export const MODIFY_POST_FAILURE = 'MODIFY_POST_FAILURE'
 
 export const REMOVE_IMAGE = 'REMOVE_IMAGE'
 
@@ -224,6 +231,20 @@ const reducer = (state = initialState, action) => {
             case UNLIKE_POST_FAILURE:
                 draft.unlikePostLoading = false
                 draft.unlikePostError = action.error
+                break
+            case MODIFY_POST_REQUEST:
+                draft.modifyPostLoading = true
+                draft.modifyPostDone = false
+                draft.modifyPostError = null
+                break
+            case MODIFY_POST_SUCCESS:
+                draft.modifyPostLoading = false
+                draft.modifyPostDone = true
+                draft.mainPosts[action.data.id] = action.data
+                break
+            case MODIFY_POST_FAILURE:
+                draft.modifyPostLoading = false
+                draft.modifyPostError = action.error
                 break
             case LOAD_POST_REQUEST:
                 draft.loadPostLoading = true

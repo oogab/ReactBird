@@ -11,7 +11,7 @@ import CommentForm from "./CommentForm"
 import PostCardContent from "./PostCardContent"
 import { LIKE_POST_REQUEST, REMOVE_POST_REQUEST, UNLIKE_POST_REQUEST, RETWEET_REQUEST } from "../reducers/post"
 import FollowButton from "./FollowButton"
-import PostForm from "./PostForm"
+import PostEdit from "./PostEdit"
 
 moment.locale('ko')
 
@@ -123,7 +123,7 @@ const PostCard = ({ post }) => {
                 )
                 : (
                 edit === true
-                    ? (<PostForm content={post.content}/>)
+                    ? (<PostEdit post={post} onCancel={onClickModify}/>)
                     : <>
                         <div style={{ float: 'right' }}>{moment(post.createdAt).format('YYYY.MM.DD')}</div>
                         <Card.Meta
