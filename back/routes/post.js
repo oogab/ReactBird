@@ -156,11 +156,11 @@ router.patch('/:postId', isLoggedIn, async (req, res, next) => {  // PATCH /post
             content: req.body.content
         }, {
             where: {
-                id: parseInt(req.params.postId),
+                id: req.params.postId,
                 UserId: req.user.id,
             },
         })
-        res.status(200).json({ PostId: req.params.postId, content: req.body.content})
+        res.status(200).json({ PostId: parseInt(req.params.postId, 10), content: req.body.content})
     } catch (error) {
         console.error(error)
         next(error)
