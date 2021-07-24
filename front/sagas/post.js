@@ -125,15 +125,16 @@ function* unlikePost(action) {
     }
 }
 
-function modifyPostAPI(postid, data) {
-    return axios.patch(`/post/${postid}`, data)
+function modifyPostAPI(data) {
+    return axios.patch(`/post/${data.postid}`, data)
 }
 
 function* modifyPost(action) {
     try {
         // 이렇게 확인을 할 수 있는데 꺼내 쓸 수 있지는 않구나...
         for (var pair of action.data.entries()) { console.log(pair[0]); }
-        const result = yield call(modifyPostAPI, action.data.postid, action.data.formData)
+        console.log(action.data.postid)
+        const result = yield call(modifyPostAPI, action.data)
         yield put({
             type: MODIFY_POST_SUCCESS,
             // data: generateDummyPost(10),
