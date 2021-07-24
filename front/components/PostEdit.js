@@ -27,7 +27,10 @@ const PostEdit = ({ post, onCancel }) => {
         formData.append('postid', post.id)
         dispatch({
             type: MODIFY_POST_REQUEST,
-            data: formData
+            data: {
+                formData,
+                postid: post.id,
+            }
         })
         onCancel()
     }, [text])

@@ -73,8 +73,6 @@ function uploadImagesAPI(data) {
 }
 
 function* uploadImages(action) {
-    console.log(action)
-    console.log(action.data)
     try {
         const result = yield call(uploadImagesAPI, action.data)
         yield put({
@@ -127,14 +125,15 @@ function* unlikePost(action) {
     }
 }
 
-function modifyPostAPI(data) {
-    return axios.patch(`/post/${data.postid}`, data.content)
+function modifyPostAPI(postid, data) {
+    return axios.patch(`/post/${postid}`, data)
 }
 
 function* modifyPost(action) {
     try {
-        console.log(action.data)
-        const result = yield call(modifyPostAPI, action.data)
+        // 이렇게 확인을 할 수 있는데 꺼내 쓸 수 있지는 않구나...
+        for (var pair of action.data.entries()) { console.log(pair[0]); }
+        const result = yield call(modifyPostAPI, action.data.postid, action.data.formData)
         yield put({
             type: MODIFY_POST_SUCCESS,
             // data: generateDummyPost(10),
