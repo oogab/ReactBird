@@ -20,7 +20,7 @@ const PostCard = ({ post }) => {
     const { removePostLoading } = useSelector((state) => state.post)
     const [commentFormOpened, setCommentFormOpened] = useState(false)
     const id = useSelector((state) => state.user.me?.id)
-    const [edit, onChangeEdit] = useState(false)
+    const [edit, setChangeEdit] = useState(false)
 
     // useEffect(() => {
     //     if (retweetError) {
@@ -72,6 +72,10 @@ const PostCard = ({ post }) => {
         })
     }, [id])
 
+    const onClickModify = useCallback(() => {
+        setChangeEdit(prev => !prev)
+    }, [])
+
     const liked = post.Likers.find((v) => v.id === id)
 
     return (
@@ -88,7 +92,7 @@ const PostCard = ({ post }) => {
                         <Button.Group>
                             {id && post.User.id === id ? (
                                 <>
-                                    {!post.RetweetId && <Button onClick={onChangeEdit(prev => !prev)}>수정</Button>}
+                                    {!post.RetweetId && <Button onClick={onClickModify}>수정</Button>}
                                     <Button type="danger" loading={removePostLoading} onClick={onRemovePost}>삭제</Button>
                                 </>
                             ) : <Button>신고</Button>}
