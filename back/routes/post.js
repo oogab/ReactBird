@@ -128,7 +128,7 @@ router.patch('/mod/:postId', isLoggedIn, async (req, res, next) => {     // PATC
         if (!post) {
             return res.status(403).send('게시글이 존재하지 않습니다.')
         }
-        await post.update({content: req.body.content})
+        await post.update({content: "수정된 내용!"})
         res.json(post)
     } catch (error) {
         console.error(error)
