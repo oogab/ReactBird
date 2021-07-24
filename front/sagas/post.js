@@ -126,7 +126,7 @@ function* unlikePost(action) {
 }
 
 function modifyPostAPI(data) {
-    return axios.patch(`/post/${data.postid}`, data)
+    return axios.patch(`/post/mod/${data.postid}`, data)
 }
 
 function* modifyPost(action) {

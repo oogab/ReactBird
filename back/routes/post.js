@@ -122,7 +122,7 @@ router.post('/:postId/comment', isLoggedIn, async (req, res, next) => {    // PO
     }
 })
 
-router.patch('/:postId', isLoggedIn, async (req, res, next) => {     // PATCH /post/1/
+router.patch('/mod/:postId', isLoggedIn, async (req, res, next) => {     // PATCH /post/mod/1/
     try {
         const post = await Post.findOne({ where: { id: req.params.postId }})
         if (!post) {
