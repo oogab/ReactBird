@@ -132,7 +132,6 @@ function modifyPostAPI(data) {
 function* modifyPost(action) {
     try {
         // 이렇게 확인을 할 수 있는데 꺼내 쓸 수 있지는 않구나...
-        for (var pair of action.data.entries()) { console.log(pair[0]); }
         console.log(action.data.postid)
         const result = yield call(modifyPostAPI, action.data)
         yield put({
