@@ -139,7 +139,7 @@ router.get('/unrelated', async (req, res, next) => { // GET /posts
             }]
         })
         const where = {
-            UserId: { [Op.notIn]: followings.map((v) => v.id) }
+            UserId: { [Op.notIn]: followings.map((v) => v.id).concat(req.user.id) }
         }
         if (parseInt(req.query.lastId, 10)) {   // 초기 로딩이 아닐 때
             where.id = { [Op.lt]: parseInt(req.query.lastId, 10) }
