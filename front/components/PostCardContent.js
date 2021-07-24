@@ -25,7 +25,7 @@ const PostCardContent = ({ postData, editMode, onChangePost, onCancelUpdate }) =
             {editMode
                 ? (
                     <>
-                        <TextArea value={postData} onChange={onChangeText}/>
+                        <TextArea value={editText} onChange={onChangeText}/>
                         <Button.Group>
                             <Button loading={updatePostLoading} onClick={onChangePost(editText)}>수정</Button>
                             <Button onClick={onCancelUpdate}>취소</Button>
@@ -46,6 +46,7 @@ const PostCardContent = ({ postData, editMode, onChangePost, onCancelUpdate }) =
 PostCardContent.propTypes = {
     postData: PropTypes.string.isRequired,
     editMode: PropTypes.bool,
+    onChangePost: PropTypes.func.isRequired,
     onCancelUpdate: PropTypes.func.isRequired
 }
 
